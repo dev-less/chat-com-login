@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head><title>Chat</title></head>
+<body>
+  <div id="chat"></div>
+  <input id="mensagem" placeholder="Digite algo...">
+  <button onclick="enviar()">Enviar</button>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    socket.on('mensagem', msg => {
+      document.getElementById('chat').innerHTML += `<p>${msg}</p>`;
+    });
+    function enviar() {
+      const msg = document.getElementById('mensagem').value;
+      socket.emit('mensagem', msg);
+    }
+  </script>
+</body>
+</html>
